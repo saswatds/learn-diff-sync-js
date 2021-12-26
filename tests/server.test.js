@@ -8,4 +8,14 @@ test('GET /', async () => {
   })
 
   expect(response.statusCode).toBe(200);
-})
+});
+
+test('GET /api', async () => {
+  const response = await app.inject({
+    method: 'GET',
+    url: '/api'
+  })
+
+  expect(response.statusCode).toBe(200);
+});
+
