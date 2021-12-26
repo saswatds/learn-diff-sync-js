@@ -1,0 +1,33 @@
+{
+  "name": "learn-diff-sync",
+  "version": "1.0.0",
+  "description": "A simple implementation of Differential Synchronization with JSON Patch over HTTP",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saswatds/learn-diff-sync-js.git"
+  },
+  "keywords": [
+    "json",
+    "patch",
+    "differential",
+    "synchronization"
+  ],
+  "author": "Saswat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/saswatds/learn-diff-sync-js/issues"
+  },
+  "homepage": "https://github.com/saswatds/learn-diff-sync-js#readme",
+  "dependencies": {
+    "fastify": "^3.25.2"
+  },
+  "devDependencies": {
+    "jest": "^27.4.5",
+    "nodemon": "^2.0.15"
+  }
+}
