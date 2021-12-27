@@ -26,7 +26,9 @@
   "homepage": "https://github.com/saswatds/learn-diff-sync-js#readme",
   "dependencies": {
     "fastify": "^3.25.2",
-    "fastify-static": "^4.5.0"
+    "fastify-mongodb": "^4.1.1",
+    "fastify-static": "^4.5.0",
+    "pino-pretty": "^7.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -38,6 +40,7 @@
     "@rollup/plugin-replace": "^3.0.0",
     "jest": "^27.4.5",
     "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "rollup": "^2.62.0"
