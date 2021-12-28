@@ -1,3 +1,5 @@
+const j = require("joi");
+
 module.exports = async function routes(fastify, opts) {
   // Register a simple route on the root and send 200 OK response.
   // This will act like our health check endpoint to know if the server is running.
@@ -8,8 +10,33 @@ module.exports = async function routes(fastify, opts) {
     return this.mongo.db.command({ ping: 1 });
   });
 
+  fastify.get("/doc", require("./controller/list"));
+
   // A post endpoint to CREATE a document
-  fastify.post("/doc", require("./controller/create"));
+  fastify.post(
+    "/doc",
+    {
+      schema: {
+        body: j
+          .object({
+            name: j.string().required(),
+            todo: j.array().items(
+              j.object({
+                checked: j.boolean().required(),
+                description: j.string().required(),
+              })
+            ),
+            table: j.object().pattern(j.string(), j.string()),
+          })
+          .required(),
+      },
+      validatorCompiler:
+        ({ schema }) =>
+        (data) =>
+          schema.validate(data),
+    },
+    require("./controller/create")
+  );
 
   // A delete endpoint to DELETE a document
   fastify.delete("/doc/:id", require("./controller/delete"));
