@@ -42,7 +42,22 @@ module.exports = async function routes(fastify, opts) {
   fastify.delete("/doc/:id", require("./controller/delete"));
 
   // A get endpoint to READ a document
-  fastify.get("/doc/:id", require("./controller/get"));
+  fastify.get(
+    "/doc/:id",
+    {
+      schema: {
+        query: j.object({
+          user: j.string().required(),
+          client: j.string().required(),
+        }),
+      },
+      validatorCompiler:
+        ({ schema }) =>
+        (data) =>
+          schema.validate(data),
+    },
+    require("./controller/get")
+  );
 
   // A patch endpoint to UPDATE a document
   // Note: Unlink the get endpoint, when updating the document we can only update
