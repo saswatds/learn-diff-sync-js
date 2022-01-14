@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/saswatds/learn-diff-sync-js#readme",
   "dependencies": {
+    "fast-json-patch": "^3.1.0",
     "fastify": "^3.25.2",
     "fastify-mongodb": "^4.1.1",
     "fastify-static": "^4.5.0",

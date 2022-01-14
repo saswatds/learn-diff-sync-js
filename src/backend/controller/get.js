@@ -1,16 +1,23 @@
 const { ObjectID } = require("bson");
 
 module.exports = async function (req) {
+  // Extract the id from the url params and user and client from the query
+  // The validation layer in fastify will ensure that they exist and are valid
   const { id } = req.params,
     { user, client } = req.query;
-  // 1. Find the flow
-  // 2. Find and update the shadow
+
+
+  // Get the document from the database without it's id
   const doc = await this.mongo.db
     .collection("doc")
     .findOne({ _id: ObjectID(id) }, { projection: { _id: 0 } });
 
+  // Create a shadow copy of document in the shadow collection with the cv and sv
+  // set to 0
+  // Note: We use mongodb options to return the document after it has been updated
+  // We also set upset to true to create the document if it does not exist already
   const { value: shadow } = await this.mongo.db
-    .collection("doc")
+    .collection("shadow")
     .findOneAndUpdate(
       {
         user,

@@ -32,8 +32,8 @@ module.exports = async function routes(fastify, opts) {
       },
       validatorCompiler:
         ({ schema }) =>
-        (data) =>
-          schema.validate(data),
+          (data) =>
+            schema.validate(data),
     },
     require("./controller/create")
   );
@@ -53,8 +53,8 @@ module.exports = async function routes(fastify, opts) {
       },
       validatorCompiler:
         ({ schema }) =>
-        (data) =>
-          schema.validate(data),
+          (data) =>
+            schema.validate(data),
     },
     require("./controller/get")
   );
@@ -62,5 +62,14 @@ module.exports = async function routes(fastify, opts) {
   // A patch endpoint to UPDATE a document
   // Note: Unlink the get endpoint, when updating the document we can only update
   // the shadow created for us, therefore our endpoint also need to pass the shadow id
-  fastify.patch("/doc/:id/shadow/:sid", require("./controller/update"));
+  fastify.patch("/doc/:id/shadow/:sid", {
+    schema: {
+      body: j.object({
+        cv: j.number(),
+        sv: j.number(),
+        patch: j.array()
+      }),
+      validatorCompiler: ({ schema }) => (data) => schema.validate(data)
+    }
+  }, require("./controller/update"));
 };
